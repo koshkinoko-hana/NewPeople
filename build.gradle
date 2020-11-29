@@ -1,16 +1,32 @@
 plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id "org.flywaydb.flyway" version "6.2.3"
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
 }
 
-group 'newpeople'
-version 'unspecified'
-
-sourceCompatibility = 1.8
+group = 'newpeople'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    runtime "mysql:mysql-connector-java:8.0.15"
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+flyway {
+    configFiles = ['src/main/resources/flyway.properties']
+}
+
+test {
+    useJUnitPlatform()
 }
