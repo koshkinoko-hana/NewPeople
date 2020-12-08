@@ -5,6 +5,6 @@ CREATE TABLE requests (
                           phone VARCHAR(11) NOT NULL,
                           attendance ENUM('FULL_TIME', 'PART_TIME') NOT NULL,
                           name VARCHAR(255),
-                          status ENUM('PROCESSED', 'UNPROCESSED') NOT NULL,
+                          status_claim ENUM('PROCESSED', 'UNPROCESSED') NOT NULL,
                           comment VARCHAR(255)
 );
