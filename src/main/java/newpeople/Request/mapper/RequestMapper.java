@@ -3,6 +3,7 @@ package newpeople.Request.mapper;
 import newpeople.Request.DTO.RequestDTO;
 import newpeople.Request.model.Attendance;
 import newpeople.Request.model.Request;
+import newpeople.Request.model.StatusClaim;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -15,14 +16,23 @@ public interface RequestMapper {
 
     Request requestDTOToRequest(RequestDTO requestDTO);
 
-
-    default Attendance toEnum(String attendance) {
-        if(attendance.equals(Attendance.FULL_TIME.name())) {
+    default Attendance toEnumAttendance(String attendance) {
+        if(Attendance.FULL_TIME.name().equals(attendance)) {
             return Attendance.FULL_TIME;
         }
-        if(attendance.equals(Attendance.PART_TIME.name())) {
+        if(Attendance.PART_TIME.name().equals(attendance)) {
             return Attendance.PART_TIME;
         }
-        throw new RuntimeException("cannot recognize attenddance value");
+        throw new RuntimeException("cannot recognize attendance value");
+    }
+
+    default StatusClaim toEnumStatus(String statusClaim) {
+        if(statusClaim == null || StatusClaim.UNPROCESSED.name().equals(statusClaim)) {
+            return StatusClaim.UNPROCESSED;
+        }
+        if(StatusClaim.PROCESSED.name().equals(statusClaim)) {
+            return StatusClaim.PROCESSED;
+        }
+        throw new RuntimeException("cannot recognize statusClaim value");
     }
 }

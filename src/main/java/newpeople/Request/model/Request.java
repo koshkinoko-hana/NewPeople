@@ -20,9 +20,9 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private Attendance attendance;
     private String name;
+    @Enumerated(EnumType.STRING)
+    @MapKeyColumn(name = "status_claim")
+    private StatusClaim statusClaim;
     private String comment;
 
-    private String getAttendance() {
-        return attendance.toString();
-    }
 }

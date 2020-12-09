@@ -12,5 +12,17 @@ public class RequestDTO {
     private String phone;
     private String attendance;
     private String name;
+    private String statusClaim;
     private String comment;
+
+    @Override
+    public String toString() {
+        return "{\"id\": \"" + id + "\", "
+                + "\"age\": \"" + age + "\", "
+                + "\"phone\": \"" + phone + "\", "
+                + "\"attendance\": \"" + attendance + "\", "
+                + "\"name\": \"" + name + "\", "
+                + "\"statusClaim\": \"" + statusClaim + "\", "
+                + "\"comment\": \"" + comment + "\"}";
+    }
 }
