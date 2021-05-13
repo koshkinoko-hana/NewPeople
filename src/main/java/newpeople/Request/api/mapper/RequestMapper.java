@@ -17,21 +17,22 @@ public interface RequestMapper {
 
     Request requestDTOToRequest(RequestDTO requestDTO);
 
-    default Attendance toEnumAttendance(String attendance) {
-        if(Attendance.FULL_TIME.name().equals(attendance)) {
-            return Attendance.FULL_TIME;
-        }
-        if(Attendance.PART_TIME.name().equals(attendance)) {
-            return Attendance.PART_TIME;
-        }
-        throw new UnExpectedEnumValueException("attendance");
-    }
+//    default Attendance toEnumAttendance(String attendance) {
+//        if (Attendance.FULL_TIME.name().equals(attendance)) {
+//            return Attendance.FULL_TIME;
+//        }
+//        if (Attendance.PART_TIME.name().equals(attendance)) {
+//            return Attendance.PART_TIME;
+//        }
+//        return Attendance.PART_TIME;
+////        throw new UnExpectedEnumValueException("attendance");
+//    }
 
     default StatusClaim toEnumStatus(String statusClaim) {
-        if(statusClaim == null || StatusClaim.UNPROCESSED.name().equals(statusClaim)) {
+        if (statusClaim == null || StatusClaim.UNPROCESSED.name().equals(statusClaim)) {
             return StatusClaim.UNPROCESSED;
         }
-        if(StatusClaim.PROCESSED.name().equals(statusClaim)) {
+        if (StatusClaim.PROCESSED.name().equals(statusClaim)) {
             return StatusClaim.PROCESSED;
         }
         throw new UnExpectedEnumValueException("statusClaim");

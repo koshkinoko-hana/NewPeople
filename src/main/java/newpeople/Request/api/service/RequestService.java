@@ -23,9 +23,8 @@ public interface RequestService {
         Получение всех не обработанных заявок
      */
     List<RequestDTO> getAllUnprocessedRequests();
-
     /*
-        Отправка новой заявки боту
-    */
-    HttpStatus sendToBotService();
+        Получение count не обработанных заявок
+     */
+    List<RequestDTO> getUnprocessedRequests(Integer count);
 }

@@ -12,7 +12,7 @@ public class RequestDTO {
     private Integer id;
     private Integer age;
     private String phone;
-    private String attendance;
+//    private String attendance;
     private String name;
     private String statusClaim;
     private String comment;
@@ -25,9 +25,9 @@ public class RequestDTO {
         return "{\"id\": \"" + id + "\", "
                 + "\"age\": \"" + age + "\", "
                 + "\"phone\": \"" + phone + "\", "
-                + "\"attendance\": \"" + attendance + "\", "
+//                + "\"attendance\": \"" + attendance + "\", "
                 + "\"name\": \"" + name + "\", "
-                + "\"statusClaim\": \"" + statusClaim + "\", "
+//                + "\"statusClaim\": \"" + statusClaim + "\", "
                 + "\"created\": \"" + created.toString() + "\", "
                 + "\"updated\": \"" + updated.toString() + "\", "
                 + "\"updater\": \"" + updater + "\", "

@@ -28,7 +28,8 @@ public class RequestController {
     @PostMapping
     public ResponseEntity<Void> saveRequest(@RequestBody RequestDTO request) {
         //todo добавить проверки на входные данные по безопасности
-        return new ResponseEntity(service.sendToBotService());
+        RequestDTO res = service.save(request);
+        return new ResponseEntity(res, HttpStatus.OK);
     }
 
     @PutMapping
@@ -39,13 +40,19 @@ public class RequestController {
             return new ResponseEntity(HttpStatus.OK);
         }
         catch (ClaimIdNotFoundException e){
-            return new ResponseEntity(HttpStatus.INSUFFICIENT_STORAGE);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping
-    public ResponseEntity<Void> getClaims(@RequestBody List<RequestDTO> request){
-        //todo в работе
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<Void> getClaims(){
+        List<RequestDTO> requests = service.getAllUnprocessedRequests();
+        return new ResponseEntity(requests, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{count}")
+    public ResponseEntity<Void> getClaims(@PathVariable Integer count){
+        List<RequestDTO> requests = service.getUnprocessedRequests(count);
+        return new ResponseEntity(requests, HttpStatus.OK);
     }
 }

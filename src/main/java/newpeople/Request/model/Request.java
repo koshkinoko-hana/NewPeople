@@ -18,9 +18,9 @@ public class Request {
     private Integer age;
     private String phone;
 
-    @Enumerated(EnumType.STRING)
-    @MapKeyColumn(name = "attendance")
-    private Attendance attendance;
+//    @Enumerated(EnumType.STRING)
+//    @MapKeyColumn(name = "attendance")
+//    private Attendance attendance;
     private String name;
     @Enumerated(EnumType.STRING)
     @MapKeyColumn(name = "status_claim")

@@ -11,6 +11,7 @@ import newpeople.Request.utils.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -32,8 +33,17 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public RequestDTO save(RequestDTO dto) {
         Request model = mapper.requestDTOToRequest(dto);
-        return mapper.requestToRequestDTO(repository.save(model));
-
+        model.setCreated(new Date());
+        model.setUpdated(model.getCreated());
+        model.setUpdater("admin");
+        model.setStatusClaim(StatusClaim.UNPROCESSED);
+        RequestDTO res = mapper.requestToRequestDTO(repository.save(model));
+        try {
+            sendToBotService(dto);
+        } catch (RestClientException e) {
+            System.out.println(e);
+        }
+        return res;
     }
 
     @Override
@@ -64,10 +74,22 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public HttpStatus sendToBotService() {
+    public List<RequestDTO> getUnprocessedRequests(Integer count) {
+        List<RequestDTO> result = new ArrayList<>();
+        repository.getUnprocessedRequests(count).forEach(request ->
+        {
+            if (request.getStatusClaim() == StatusClaim.UNPROCESSED) {
+                result.add(mapper.requestToRequestDTO(request));
+            }
+        });
+        return result;
+    }
+
+
+    public void sendToBotService(RequestDTO data) {
         RestTemplate restTemplate = new RestTemplate();
 
-        return HttpStatus.OK ;// restTemplate.getForObject(ServiceUtils.getProperty(), HttpStatus.class);
+        restTemplate.postForObject("http://localhost:3001", data, RequestDTO.class);
 
     }
 
