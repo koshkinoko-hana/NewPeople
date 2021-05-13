@@ -27,17 +27,15 @@ public class RequestController {
 
     @PostMapping
     public ResponseEntity<Void> saveRequest(@RequestBody RequestDTO request) {
-        //todo добавить проверки на входные данные по безопасности
         RequestDTO res = service.save(request);
         return new ResponseEntity(res, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<Void> updateStatusClaim(@RequestBody RequestDTO request){
-        //todo добавить проверки на входные данные по безопасности
         try {
             service.update(request.getId(), StatusClaim.valueOf(request.getStatusClaim()));
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         catch (ClaimIdNotFoundException e){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
